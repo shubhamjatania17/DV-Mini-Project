@@ -1,0 +1,14 @@
+StationId,StationName,City,Latitude,Longitude,Coordinate_Notes,Coordinate_Source_Type
+MH005,"Bandra, Mumbai - MPCB",Mumbai,19.063083,72.846444,Published coordinates for Bandra CAAQMS; matched by station name,MPCB report coordinates
+MH006,"Borivali East, Mumbai - MPCB",Mumbai,19.2456,72.8651,Approximate locality coordinate; verify exact monitoring-site point,Approximate locality
+MH007,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",Mumbai,19.1004,72.8763,Published Airport CAAQMS coordinates; matched by station name,MPCB report coordinates
+MH008,"Colaba, Mumbai - MPCB",Mumbai,18.9078,72.8197,Published Colaba CAAQMS coordinates; matched by station name,MPCB report coordinates
+MH009,"Kurla, Mumbai - MPCB",Mumbai,19.0863,72.8888,Published Kurla CAAQMS coordinates; matched by station name,MPCB report coordinates
+MH010,"Powai, Mumbai - MPCB",Mumbai,19.1334,72.9132,Published Powai CAAQMS coordinates; matched by station name,MPCB report coordinates
+MH011,"Sion, Mumbai - MPCB",Mumbai,19.035528,72.859755,Published Sion CAAQMS coordinates; matched by station name,MPCB report coordinates
+MH012,"Vasai West, Mumbai - MPCB",Mumbai,19.371,72.812,Approximate Vasai West locality coordinate; station is geographically outside central Mumbai; verify scope,Approximate locality
+MH013,"Vile Parle West, Mumbai - MPCB",Mumbai,19.1095,72.8353,Published Vile Parle CAAQMS coordinates; matched by station name,MPCB report coordinates
+MH014,"Worli, Mumbai - MPCB",Mumbai,18.9936,72.8128,Published station coordinate from station-specific secondary report; cross-check against current MPCB listing,Published secondary source
+MH017,"Airoli, Navi Mumbai - MPCB",Navi Mumbai,19.157,72.999,Approximate Airoli Fire Station locality coordinate; not verified exact monitor location,Approximate locality
+MH018,"Mahape, Navi Mumbai - MPCB",Navi Mumbai,19.116,73.025,Approximate Mahape MIDC locality coordinate; not verified exact monitor location,Approximate locality
+MH019,"Nerul, Navi Mumbai - MPCB",Navi Mumbai,19.033,73.019,Approximate Nerul monitoring area coordinate; not verified exact monitor location,Approximate locality
