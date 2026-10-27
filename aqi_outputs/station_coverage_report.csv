@@ -1,0 +1,14 @@
+stationid,stationname,city,observation_rows
+MH005,"Bandra, Mumbai - MPCB",Mumbai,2009
+MH006,"Borivali East, Mumbai - MPCB",Mumbai,386
+MH007,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",Mumbai,394
+MH008,"Colaba, Mumbai - MPCB",Mumbai,374
+MH009,"Kurla, Mumbai - MPCB",Mumbai,392
+MH010,"Powai, Mumbai - MPCB",Mumbai,394
+MH011,"Sion, Mumbai - MPCB",Mumbai,378
+MH012,"Vasai West, Mumbai - MPCB",Mumbai,395
+MH013,"Vile Parle West, Mumbai - MPCB",Mumbai,395
+MH014,"Worli, Mumbai - MPCB",Mumbai,387
+MH017,"Airoli, Navi Mumbai - MPCB",Navi Mumbai,0
+MH018,"Mahape, Navi Mumbai - MPCB",Navi Mumbai,0
+MH019,"Nerul, Navi Mumbai - MPCB",Navi Mumbai,0

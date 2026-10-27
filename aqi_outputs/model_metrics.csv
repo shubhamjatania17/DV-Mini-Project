@@ -1,0 +1,8 @@
+Metric,Value
+MAE,8.052122155693768
+RMSE,12.26961505688255
+R2,0.738495920986233
+Training_Rows,3097.0
+Test_Rows,775.0
+Model_Feature_Count,10.0
+Navi_Mumbai_Observation_Rows,0.0
