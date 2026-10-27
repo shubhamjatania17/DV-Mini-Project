@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>Data Visualization Mini Project | Power BI</title>
+<style>
+:root{--bg:#0b1220;--panel:#111c2e;--text:#eef4ff;--muted:#9fb0c7;--accent:#35d3df;--border:rgba(180,203,230,.16)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--text)}
+body{background:radial-gradient(circle at 15% 0%,rgba(53,211,223,.12),transparent 34rem),radial-gradient(circle at 90% 10%,rgba(86,135,245,.12),transparent 32rem),var(--bg)}
+header,footer{padding:1rem clamp(1rem,4vw,3rem);display:flex;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:.8rem}.mark{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#35d3df,#5687f5);color:#071321;font-weight:900}
+.brand strong{display:block}.sub,.muted{color:var(--muted);font-size:.82rem;margin-top:.25rem}
+.status{font-size:.78rem;color:#bfeee7;border:1px solid rgba(66,199,122,.28);background:rgba(66,199,122,.08);border-radius:99px;padding:.55rem .8rem}
+main{max-width:1800px;margin:auto;padding:clamp(1rem,3vw,2rem)}
+.intro{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:1.2rem}.eyebrow{color:var(--accent);text-transform:uppercase;font-size:.72rem;font-weight:800;letter-spacing:.16em}
+h1{margin:.45rem 0 .55rem;font-size:clamp(1.7rem,3vw,2.65rem);letter-spacing:-.04em}.intro p{max-width:780px;color:var(--muted);line-height:1.6;margin:0}
+a.open{display:inline-flex;justify-content:center;gap:.5rem;padding:.8rem 1rem;border-radius:11px;text-decoration:none;white-space:nowrap;color:#061321;font-weight:750;background:var(--accent)}
+.card{overflow:hidden;border:1px solid var(--border);border-radius:18px;background:var(--panel);box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.1rem;border-bottom:1px solid var(--border)}
+.toolbar strong{font-size:.9rem}.toolbar .muted{display:block}.actions{display:flex;gap:.5rem}
+button{border:1px solid var(--border);border-radius:9px;padding:.58rem .8rem;color:var(--text);background:rgba(255,255,255,.04);cursor:pointer}
+button:hover{background:rgba(255,255,255,.09)}
+.frame{position:relative;width:100%;height:min(78vh,1000px);min-height:520px;background:#f8fafc}
+iframe{display:block;width:100%;height:100%;border:0;background:#f8fafc}
+.loading{position:absolute;inset:0;display:grid;place-content:center;gap:.6rem;text-align:center;padding:2rem;color:#526176;background:#f8fafc;pointer-events:none;transition:opacity .4s}
+.loading.hidden{opacity:0}.loading strong{color:#152338}.spinner{width:26px;height:26px;margin:auto;border:3px solid #d8e2ed;border-top-color:#168e9a;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.note{display:flex;gap:.65rem;margin-top:1rem;color:var(--muted);font-size:.82rem;line-height:1.55}.note b{color:var(--text)}
+footer{border-top:1px solid var(--border);border-bottom:0;color:#8294ad;font-size:.78rem;flex-wrap:wrap}
+@media(max-width:700px){header{align-items:flex-start}.status{display:none}.intro{align-items:stretch;flex-direction:column}a.open{width:100%}.toolbar{align-items:flex-start;flex-direction:column}.actions{width:100%}.actions button{flex:1}.frame{min-height:420px;height:72vh}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="mark">DV</div><div><strong>Data Visualization Mini Project</strong><div class="sub">Interactive Power BI report</div></div></div>
+  <div class="status">● Live report embed</div>
+</header>
+<main>
+  <section class="intro">
+    <div><div class="eyebrow">Analytics · Insights · Exploration</div><h1>Explore the dashboard</h1><p>Interact with the Power BI report below. Use its built-in filters and visual controls to explore the data.</p></div>
+    <a class="open" href="https://app.powerbi.com/view?r=eyJrIjoiZmVhYzA4MzgtZDlhNC00NmMzLWI4NzItNDVlNWViMTkzNWYwIiwidCI6ImQxZjE0MzQ4LWYxYjUtNGEwOS1hYzk5LTdlYmYyMTNjYmM4MSIsImMiOjEwfQ%3D%3D" target="_blank" rel="noopener noreferrer">Open report in new tab ↗</a>
+  </section>
+  <section class="card" aria-label="Embedded Power BI report">
+    <div class="toolbar"><div><strong>DV_MiniProject_I012_I026_I034</strong><span class="muted">Interactive report · Powered by Microsoft Power BI</span></div><div class="actions"><button id="reloadBtn" type="button">Reload report</button><button id="fullscreenBtn" type="button">Full screen</button></div></div>
+    <div class="frame" id="reportWrap">
+      <iframe id="powerbiFrame" title="DV_MiniProject_I012_I026_I034 Power BI report" src="https://app.powerbi.com/view?r=eyJrIjoiZmVhYzA4MzgtZDlhNC00NmMzLWI4NzItNDVlNWViMTkzNWYwIiwidCI6ImQxZjE0MzQ4LWYxYjUtNGEwOS1hYzk5LTdlYmYyMTNjYmM4MSIsImMiOjEwfQ%3D%3D" allowfullscreen="true" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <div class="loading" id="loadingNote"><div class="spinner"></div><strong>Loading Power BI report…</strong><span>If it does not appear, use “Open report in new tab”.</span></div>
+    </div>
+  </section>
+  <div class="note"><span>ⓘ</span><div><b>Viewing note:</b> An internet connection is required. If the owner disables public embedding or Power BI blocks the embed, open the report in a new tab. Public “Publish to web” reports can be viewed by anyone on the internet, so do not use this method for confidential data.</div></div>
+  <p class="muted">Save this file as <code>index.html</code> and double-click it to open in your browser.</p>
+</main>
+<footer><span>Data Visualization Mini Project</span><span>Interactive dashboard · HTML + Power BI embed</span></footer>
+<script>
+const frame=document.getElementById('powerbiFrame');
+const loading=document.getElementById('loadingNote');
+const wrap=document.getElementById('reportWrap');
+frame.addEventListener('load',()=>setTimeout(()=>loading.classList.add('hidden'),900));
+document.getElementById('reloadBtn').addEventListener('click',()=>{loading.classList.remove('hidden');frame.src=frame.src;});
+document.getElementById('fullscreenBtn').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await wrap.requestFullscreen();}catch(e){window.open(frame.src,'_blank','noopener,noreferrer');}});
+</script>
+</body>
+</html>
