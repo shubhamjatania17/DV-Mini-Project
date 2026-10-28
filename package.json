@@ -7,7 +7,7 @@
     "server": "node server/server.js",
     "client": "npm --prefix client run dev",
     "build": "npm --prefix client run build",
-    "render-build": "python3 -m pip install --break-system-packages --user -r requirements.txt && npm install --prefix server && npm install --prefix client --include=dev && npm run --prefix client build",
+    "render-build": "(virtualenv .venv || python3 -m venv .venv) && ./.venv/bin/pip install -r requirements.txt && npm install --prefix server && npm install --prefix client --include=dev && npm run --prefix client build",
     "train:ml": "python server/ml/train_model.py"
   },
   "keywords": [

@@ -80,12 +80,12 @@ exports.predictLive = (req, res) => {
   const homeDir = process.env.HOME || '/opt/render';
   const customPythonPaths = [
     process.env.PYTHONPATH,
+    path.join(BASE_DIR, '.venv/lib/python3.11/site-packages'),
+    path.join(BASE_DIR, '.venv/lib/python3.10/site-packages'),
+    path.join(BASE_DIR, '.venv/lib/python3.12/site-packages'),
+    path.join(BASE_DIR, 'server/ml/vendor'),
     path.join(homeDir, '.local/lib/python3.11/site-packages'),
-    path.join(homeDir, '.local/lib/python3.10/site-packages'),
-    path.join(homeDir, '.local/lib/python3.12/site-packages'),
-    '/opt/render/.local/lib/python3.11/site-packages',
-    '/opt/render/.local/lib/python3.10/site-packages',
-    '/opt/render/.local/lib/python3.12/site-packages'
+    '/opt/render/.local/lib/python3.11/site-packages'
   ].filter(Boolean).join(process.platform === 'win32' ? ';' : ':');
 
   const pyProcess = spawn(pythonCmd, [PREDICT_SCRIPT], {

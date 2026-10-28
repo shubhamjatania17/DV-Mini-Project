@@ -11,17 +11,20 @@ from pathlib import Path
 import site
 import sys
 
-# Ensure user-site and Render-specific package directories are in sys.path
+# Ensure workspace virtualenv and package directories are in sys.path
+_BASE_DIR = Path(__file__).resolve().parents[2]
+_VENDOR_DIR = Path(__file__).resolve().parent / "vendor"
 _SEARCH_PATHS = [
+    str(_VENDOR_DIR),
+    str(_BASE_DIR / ".venv" / "lib" / "python3.11" / "site-packages"),
+    str(_BASE_DIR / ".venv" / "lib" / "python3.10" / "site-packages"),
+    str(_BASE_DIR / ".venv" / "lib" / "python3.12" / "site-packages"),
     site.getusersitepackages() if hasattr(site, "getusersitepackages") else "",
     os.path.expanduser("~/.local/lib/python3.11/site-packages"),
-    os.path.expanduser("~/.local/lib/python3.10/site-packages"),
-    os.path.expanduser("~/.local/lib/python3.12/site-packages"),
     "/opt/render/.local/lib/python3.11/site-packages",
-    "/opt/render/.local/lib/python3.10/site-packages",
-    "/opt/render/.local/lib/python3.12/site-packages",
 ]
 for _pattern in [
+    str(_BASE_DIR / ".venv" / "lib" / "python*" / "site-packages"),
     os.path.expanduser("~/.local/lib/python*/site-packages"),
     "/opt/render/.local/lib/python*/site-packages",
 ]:
@@ -31,28 +34,9 @@ for _p in _SEARCH_PATHS:
     if _p and os.path.exists(_p) and _p not in sys.path:
         sys.path.insert(0, _p)
 
-try:
-    import joblib  # noqa: E402
-    import numpy as np  # noqa: E402
-    import pandas as pd  # noqa: E402
-except ModuleNotFoundError as err:
-    import subprocess
-    try:
-        pip_list = subprocess.check_output(
-            [sys.executable, "-m", "pip", "list"], text=True
-        )
-    except Exception as exc:  # noqa: E722
-        pip_list = str(exc)
-    try:
-        site_info = subprocess.check_output(
-            [sys.executable, "-m", "site"], text=True
-        )
-    except Exception as exc:  # noqa: E722
-        site_info = str(exc)
-    raise RuntimeError(
-        f"Missing module: {err}. executable={sys.executable}. "
-        f"sys.path={sys.path}. pip_list={pip_list}. site_info={site_info}"
-    )
+import joblib  # noqa: E402
+import numpy as np  # noqa: E402
+import pandas as pd  # noqa: E402
 
 
 ML_DIR = Path(__file__).resolve().parent
