@@ -1,0 +1,23 @@
+{
+  "name": "mumbai-aqi-powerbi-mern",
+  "version": "1.0.0",
+  "description": "Full Stack MERN + Scikit-Learn Python Air Quality Dashboard for Mumbai & Navi Mumbai (2018-2020)",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "node server/server.js",
+    "client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "train:ml": "python server/ml/train_model.py"
+  },
+  "keywords": [
+    "mern",
+    "powerbi",
+    "machine-learning",
+    "random-forest",
+    "air-quality",
+    "aqi",
+    "mumbai"
+  ],
+  "author": "Group I012, I026, I034",
+  "license": "ISC"
+}

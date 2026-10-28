@@ -1,0 +1,136 @@
+{
+  "model_name": "RandomForestRegressor",
+  "target": "aqi",
+  "features": [
+    "pm2_5",
+    "pm10",
+    "no",
+    "no2",
+    "nox",
+    "nh3",
+    "co",
+    "so2",
+    "o3",
+    "benzene"
+  ],
+  "metrics": {
+    "MAE": 8.0541,
+    "RMSE": 12.2922,
+    "R2": 0.7375,
+    "train_rows": 3097,
+    "test_rows": 775,
+    "split_ratio": "80/20 Chronological"
+  },
+  "feature_importance": [
+    {
+      "feature": "pm10",
+      "importance": 0.7045,
+      "percentage": 70.45
+    },
+    {
+      "feature": "pm2_5",
+      "importance": 0.177,
+      "percentage": 17.7
+    },
+    {
+      "feature": "nox",
+      "importance": 0.0442,
+      "percentage": 4.42
+    },
+    {
+      "feature": "co",
+      "importance": 0.0308,
+      "percentage": 3.08
+    },
+    {
+      "feature": "no",
+      "importance": 0.0097,
+      "percentage": 0.97
+    },
+    {
+      "feature": "o3",
+      "importance": 0.0085,
+      "percentage": 0.85
+    },
+    {
+      "feature": "no2",
+      "importance": 0.0072,
+      "percentage": 0.72
+    },
+    {
+      "feature": "nh3",
+      "importance": 0.0067,
+      "percentage": 0.67
+    },
+    {
+      "feature": "benzene",
+      "importance": 0.0064,
+      "percentage": 0.64
+    },
+    {
+      "feature": "so2",
+      "importance": 0.005,
+      "percentage": 0.5
+    }
+  ],
+  "feature_statistics": {
+    "pm2_5": {
+      "min": 0.15,
+      "max": 157.61,
+      "median": 29.13
+    },
+    "pm10": {
+      "min": 6.4,
+      "max": 344.16,
+      "median": 86.64
+    },
+    "no": {
+      "min": 0.26,
+      "max": 188.23,
+      "median": 18.03
+    },
+    "no2": {
+      "min": 0.04,
+      "max": 180.4,
+      "median": 21.35
+    },
+    "nox": {
+      "min": 0.48,
+      "max": 247.5,
+      "median": 47.3
+    },
+    "nh3": {
+      "min": 0.01,
+      "max": 100.16,
+      "median": 12.04
+    },
+    "co": {
+      "min": 0.0,
+      "max": 8.69,
+      "median": 0.65
+    },
+    "so2": {
+      "min": 0.01,
+      "max": 163.67,
+      "median": 9.56
+    },
+    "o3": {
+      "min": 0.03,
+      "max": 159.18,
+      "median": 20.46
+    },
+    "benzene": {
+      "min": 0.0,
+      "max": 128.91,
+      "median": 1.48
+    }
+  },
+  "training_date_range": {
+    "start": "2018-05-07",
+    "end": "2020-03-26"
+  },
+  "test_date_range": {
+    "start": "2020-03-27",
+    "end": "2020-07-01"
+  }
+}
