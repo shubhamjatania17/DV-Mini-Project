@@ -1,9 +1,19 @@
 const path = require('path');
+const fs = require('fs');
 const { spawn } = require('child_process');
 const dataStore = require('../data/dataStore');
 
 const BASE_DIR = path.resolve(__dirname, '../..');
 const PREDICT_SCRIPT = path.join(BASE_DIR, 'server/ml/predict.py');
+
+function getPythonCommand() {
+  if (process.env.PYTHON_PATH) return process.env.PYTHON_PATH;
+  const venvLinux = path.join(BASE_DIR, '.venv/bin/python');
+  const venvWin = path.join(BASE_DIR, '.venv/Scripts/python.exe');
+  if (fs.existsSync(venvLinux)) return venvLinux;
+  if (fs.existsSync(venvWin)) return venvWin;
+  return process.platform === 'win32' ? 'python' : 'python3';
+}
 
 exports.getModelMetrics = (req, res) => {
   if (!dataStore.metadata) {
@@ -66,7 +76,7 @@ exports.predictLive = (req, res) => {
   }
 
   // Execute python predict.py using stdin for 100% reliable cross-platform JSON passing
-  const pythonCmd = process.env.PYTHON_PATH || (process.platform === 'win32' ? 'python' : 'python3');
+  const pythonCmd = getPythonCommand();
   const pyProcess = spawn(pythonCmd, [PREDICT_SCRIPT]);
 
   let stdoutData = '';
