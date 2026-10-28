@@ -31,9 +31,28 @@ for _p in _SEARCH_PATHS:
     if _p and os.path.exists(_p) and _p not in sys.path:
         sys.path.insert(0, _p)
 
-import joblib  # noqa: E402
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
+try:
+    import joblib  # noqa: E402
+    import numpy as np  # noqa: E402
+    import pandas as pd  # noqa: E402
+except ModuleNotFoundError as err:
+    import subprocess
+    try:
+        pip_list = subprocess.check_output(
+            [sys.executable, "-m", "pip", "list"], text=True
+        )
+    except Exception as exc:  # noqa: E722
+        pip_list = str(exc)
+    try:
+        site_info = subprocess.check_output(
+            [sys.executable, "-m", "site"], text=True
+        )
+    except Exception as exc:  # noqa: E722
+        site_info = str(exc)
+    raise RuntimeError(
+        f"Missing module: {err}. executable={sys.executable}. "
+        f"sys.path={sys.path}. pip_list={pip_list}. site_info={site_info}"
+    )
 
 
 ML_DIR = Path(__file__).resolve().parent
