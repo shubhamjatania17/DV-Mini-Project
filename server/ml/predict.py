@@ -4,13 +4,37 @@ Loads the trained Random Forest model and provides categorization and
 health advisories based on predicted AQI and pollutant input levels.
 """
 
+import glob
 import json
+import os
 from pathlib import Path
+import site
 import sys
 
-import joblib
-import numpy as np
-import pandas as pd
+# Ensure user-site and Render-specific package directories are in sys.path
+_SEARCH_PATHS = [
+    site.getusersitepackages() if hasattr(site, "getusersitepackages") else "",
+    os.path.expanduser("~/.local/lib/python3.11/site-packages"),
+    os.path.expanduser("~/.local/lib/python3.10/site-packages"),
+    os.path.expanduser("~/.local/lib/python3.12/site-packages"),
+    "/opt/render/.local/lib/python3.11/site-packages",
+    "/opt/render/.local/lib/python3.10/site-packages",
+    "/opt/render/.local/lib/python3.12/site-packages",
+]
+for _pattern in [
+    os.path.expanduser("~/.local/lib/python*/site-packages"),
+    "/opt/render/.local/lib/python*/site-packages",
+]:
+    _SEARCH_PATHS.extend(glob.glob(_pattern))
+
+for _p in _SEARCH_PATHS:
+    if _p and os.path.exists(_p) and _p not in sys.path:
+        sys.path.insert(0, _p)
+
+import joblib  # noqa: E402
+import numpy as np  # noqa: E402
+import pandas as pd  # noqa: E402
+
 
 ML_DIR = Path(__file__).resolve().parent
 MODEL_PATH = ML_DIR / "model.joblib"

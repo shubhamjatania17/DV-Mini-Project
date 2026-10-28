@@ -77,7 +77,24 @@ exports.predictLive = (req, res) => {
 
   // Execute python predict.py using stdin for 100% reliable cross-platform JSON passing
   const pythonCmd = getPythonCommand();
-  const pyProcess = spawn(pythonCmd, [PREDICT_SCRIPT]);
+  const homeDir = process.env.HOME || '/opt/render';
+  const customPythonPaths = [
+    process.env.PYTHONPATH,
+    path.join(homeDir, '.local/lib/python3.11/site-packages'),
+    path.join(homeDir, '.local/lib/python3.10/site-packages'),
+    path.join(homeDir, '.local/lib/python3.12/site-packages'),
+    '/opt/render/.local/lib/python3.11/site-packages',
+    '/opt/render/.local/lib/python3.10/site-packages',
+    '/opt/render/.local/lib/python3.12/site-packages'
+  ].filter(Boolean).join(process.platform === 'win32' ? ';' : ':');
+
+  const pyProcess = spawn(pythonCmd, [PREDICT_SCRIPT], {
+    env: {
+      ...process.env,
+      PYTHONPATH: customPythonPaths,
+      PYTHONUSERBASE: path.join(homeDir, '.local')
+    }
+  });
 
   let stdoutData = '';
   let stderrData = '';
