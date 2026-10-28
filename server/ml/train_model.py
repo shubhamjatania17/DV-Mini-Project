@@ -1,19 +1,27 @@
-import os
+"""Train Random Forest regression model on Mumbai AQI pollutant dataset."""
+
 import json
 from pathlib import Path
+
+import joblib
 import numpy as np
 import pandas as pd
-import joblib
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.impute import SimpleImputer
+from sklearn.metrics import (
+    mean_absolute_error,
+    mean_squared_error,
+    r2_score,
+)
+from sklearn.pipeline import Pipeline
 
 BASE_DIR = Path(r"c:\Users\Shubham\Desktop\My Works\DV Mini Project")
 OUTPUT_DIR = BASE_DIR / "server" / "ml"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-powerbi_csv = BASE_DIR / "aqi_outputs" / "mumbai_navi_mumbai_aqi_powerbi.csv"
+powerbi_csv = (
+    BASE_DIR / "aqi_outputs" / "mumbai_navi_mumbai_aqi_powerbi.csv"
+)
 if not powerbi_csv.exists():
     raise FileNotFoundError(f"Missing {powerbi_csv}")
 
@@ -22,7 +30,7 @@ print(f"Loaded {len(df)} rows from {powerbi_csv}")
 
 pollutant_cols = [
     "pm2_5", "pm10", "no", "no2", "nox", "nh3",
-    "co", "so2", "o3", "benzene", "toluene", "xylene"
+    "co", "so2", "o3", "benzene", "toluene", "xylene",
 ]
 pollutant_cols = [c for c in pollutant_cols if c in df.columns]
 
@@ -37,7 +45,9 @@ split_at = int(len(clean) * 0.80)
 train_df = clean.iloc[:split_at].copy()
 test_df = clean.iloc[split_at:].copy()
 
-model_feature_cols = [c for c in pollutant_cols if train_df[c].notna().any()]
+model_feature_cols = [
+    c for c in pollutant_cols if train_df[c].notna().any()
+]
 print("Model features:", model_feature_cols)
 
 X_train = train_df[model_feature_cols]
@@ -51,8 +61,8 @@ model = Pipeline(steps=[
         n_estimators=300,
         min_samples_leaf=2,
         random_state=42,
-        n_jobs=-1
-    ))
+        n_jobs=-1,
+    )),
 ])
 
 model.fit(X_train, y_train)
@@ -67,19 +77,33 @@ print(f"Model trained! MAE: {mae:.2f}, RMSE: {rmse:.2f}, R2: {r2:.4f}")
 rf = model.named_steps["rf"]
 importances = rf.feature_importances_.tolist()
 feature_importance = [
-    {"feature": col, "importance": round(float(imp), 4), "percentage": round(float(imp) * 100, 2)}
-    for col, imp in sorted(zip(model_feature_cols, importances), key=lambda x: x[1], reverse=True)
+    {
+        "feature": col,
+        "importance": round(float(imp), 4),
+        "percentage": round(float(imp) * 100, 2),
+    }
+    for col, imp in sorted(
+        zip(model_feature_cols, importances),
+        key=lambda x: x[1],
+        reverse=True,
+    )
 ]
 
 imputer = model.named_steps["imputer"]
-medians = {col: round(float(m), 2) for col, m in zip(model_feature_cols, imputer.statistics_)}
+medians = {
+    col: round(float(m), 2)
+    for col, m in zip(model_feature_cols, imputer.statistics_)
+}
 
 min_max = {}
 for col in model_feature_cols:
+    has_values = clean[col].notna().any()
+    col_min = round(float(clean[col].min()), 2) if has_values else 0.0
+    col_max = round(float(clean[col].max()), 2) if has_values else 100.0
     min_max[col] = {
-        "min": round(float(clean[col].min()), 2) if clean[col].notna().any() else 0.0,
-        "max": round(float(clean[col].max()), 2) if clean[col].notna().any() else 100.0,
-        "median": medians[col]
+        "min": col_min,
+        "max": col_max,
+        "median": medians[col],
     }
 
 metadata = {
@@ -92,18 +116,18 @@ metadata = {
         "R2": round(r2, 4),
         "train_rows": len(train_df),
         "test_rows": len(test_df),
-        "split_ratio": "80/20 Chronological"
+        "split_ratio": "80/20 Chronological",
     },
     "feature_importance": feature_importance,
     "feature_statistics": min_max,
     "training_date_range": {
         "start": str(train_df["date"].min().date()),
-        "end": str(train_df["date"].max().date())
+        "end": str(train_df["date"].max().date()),
     },
     "test_date_range": {
         "start": str(test_df["date"].min().date()),
-        "end": str(test_df["date"].max().date())
-    }
+        "end": str(test_df["date"].max().date()),
+    },
 }
 
 model_file = OUTPUT_DIR / "model.joblib"
