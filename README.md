@@ -67,3 +67,7 @@ graph TD
    - Python ML integration via `server/ml/predict.py` with serialized `model.joblib` and `metadata.json`.
 
 ---
+
+## 🔗 MVP link for the model
+
+<https://mumbai-aqi-analytics.onrender.com>
