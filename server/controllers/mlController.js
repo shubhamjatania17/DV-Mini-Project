@@ -66,7 +66,8 @@ exports.predictLive = (req, res) => {
   }
 
   // Execute python predict.py using stdin for 100% reliable cross-platform JSON passing
-  const pyProcess = spawn('python', [PREDICT_SCRIPT]);
+  const pythonCmd = process.env.PYTHON_PATH || (process.platform === 'win32' ? 'python' : 'python3');
+  const pyProcess = spawn(pythonCmd, [PREDICT_SCRIPT]);
 
   let stdoutData = '';
   let stderrData = '';

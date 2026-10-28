@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: mumbai-aqi-analytics
+    runtime: node
+    plan: free
+    buildCommand: npm run render-build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PYTHON_PATH
+        value: python3
